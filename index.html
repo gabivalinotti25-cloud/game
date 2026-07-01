@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script>
+(function () {
+    // Design-ui pages are single compositions, so the whole body is editable.
+    function markEditable() {
+        document.body.classList.add('artifact-editable');
+    }
+
+    // Credit badge with idle-fade. Hover devices only.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+
+    function init() {
+        markEditable();
+        initChromeUI();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEM Battle! Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}:root{--bg:oklch(12% 0.02 280);--surface:oklch(18% 0.015 280);--surface-2:oklch(22% 0.015 280);--text:oklch(92% 0.01 280);--text-dim:oklch(65% 0.01 280);--primary:oklch(65% 0.25 25);--primary-glow:oklch(65% 0.25 25/0.3);--gold:oklch(80% 0.18 85);--correct:oklch(72% 0.2 155);--wrong:oklch(62% 0.22 25);--option-a:oklch(62% 0.22 350);--option-b:oklch(58% 0.2 250);--option-c:oklch(68% 0.2 85);--option-d:oklch(60% 0.2 155);--ease-out:cubic-bezier(0.22,1,0.36,1)}body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;line-height:1.5}.screen{display:none;min-height:100dvh;padding:24px}.screen.active{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}.logo{font-size:clamp(2.2rem,7vw,3.5rem);font-weight:900;letter-spacing:-0.03em;background:linear-gradient(135deg,var(--primary),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}.logo-sub{font-family:'Space Grotesk',sans-serif;font-size:0.9rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;text-align:center}.menu-buttons{display:flex;flex-direction:column;gap:14px;width:100%;max-width:320px}.btn{border:none;font-family:inherit;font-size:1.1rem;font-weight:700;padding:16px 32px;border-radius:14px;cursor:pointer;transition:all 200ms var(--ease-out);text-align:center}.btn-primary{background:var(--primary);color:oklch(98% 0.01 25)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px var(--primary-glow)}.btn-secondary{background:var(--surface);color:var(--text);border:2px solid oklch(30% 0.01 280)}.btn-secondary:hover{border-color:var(--primary);transform:translateY(-2px)}.btn:disabled{opacity:0.4;cursor:not-allowed;transform:none!important;box-shadow:none!important}.input-group{width:100%;max-width:320px}.input-group label{display:block;font-size:0.85rem;color:var(--text-dim);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em}.input-group input{width:100%;padding:14px 18px;border:2px solid oklch(30% 0.01 280);border-radius:12px;background:var(--surface);color:var(--text);font-family:inherit;font-size:1.1rem;transition:border-color 200ms}.input-group input:focus{outline:none;border-color:var(--primary)}.code-input{text-align:center;font-size:1.8rem!important;font-weight:800;letter-spacing:0.3em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif!important}.chars-label{font-weight:600;margin-bottom:12px;display:block;font-size:0.85rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;width:100%;max-width:480px;text-align:left;margin-top:8px}.chars-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:100%;max-width:480px}.char-option{background:var(--surface-2);border:2px solid transparent;border-radius:12px;padding:8px 4px;text-align:center;cursor:pointer;transition:all 200ms var(--ease-out)}.char-option:hover{border-color:oklch(50% 0.01 280);transform:translateY(-2px)}.char-option.selected{border-color:var(--primary);background:oklch(25% 0.03 25)}.char-option.taken{opacity:0.3;pointer-events:none}.char-avatar{width:52px;height:52px;border-radius:50%;margin:0 auto;overflow:hidden;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.6rem}.char-avatar img{width:100%;height:100%;object-fit:cover;display:block}.player-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;background:var(--bg);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem}.player-avatar img{width:100%;height:100%;object-fit:cover;display:block}.player-avatar-lg{width:56px;height:56px;border-radius:50%;overflow:hidden;background:var(--bg);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.8rem}.player-avatar-lg img{width:100%;height:100%;object-fit:cover;display:block}.sc-avatar{width:24px;height:24px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:0.8rem;background:var(--bg)}.sc-avatar img{width:100%;height:100%;object-fit:cover;display:block}.room-code-display{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:700;letter-spacing:0.2em;color:var(--gold);background:var(--surface);padding:16px 32px;border-radius:16px;text-align:center}.room-code-label{font-size:0.85rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em}.players-list{width:100%;max-width:400px;display:flex;flex-direction:column;gap:8px}.player-row{display:flex;align-items:center;gap:12px;background:var(--surface);padding:12px 18px;border-radius:12px;animation:fadeUp 300ms var(--ease-out)}.player-row .pr-name{font-weight:600;flex:1}.player-row .pr-host{font-size:0.75rem;background:var(--gold);color:oklch(15% 0.02 85);padding:2px 8px;border-radius:6px;font-weight:700}.waiting-text{color:var(--text-dim);font-size:0.9rem;animation:pulse 2s infinite}#game{justify-content:flex-start;padding:16px;gap:0}.game-header{width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between;padding:12px 0;margin-bottom:8px}.question-counter{font-family:'Space Grotesk',sans-serif;font-size:0.85rem;color:var(--text-dim);font-weight:700}.question-source{font-size:0.75rem;color:var(--gold);font-weight:600;margin-top:2px}.scores-bar{display:flex;gap:6px;flex-wrap:wrap}.score-chip{display:flex;align-items:center;gap:4px;background:var(--surface);padding:3px 8px 3px 3px;border-radius:20px;font-size:0.8rem;font-weight:700}.score-chip .sc-pts{color:var(--gold);font-family:'Space Grotesk',sans-serif}.timer-bar{width:100%;max-width:900px;height:6px;background:var(--surface);border-radius:3px;margin-bottom:20px;overflow:hidden}.timer-fill{height:100%;background:var(--gold);border-radius:3px;width:100%;transition:width 1s linear}.timer-fill.danger{background:var(--wrong)}.question-card{width:100%;max-width:900px;background:var(--surface);border-radius:20px;padding:clamp(20px,4vw,36px);margin-bottom:20px}.question-text{font-size:clamp(1rem,2.5vw,1.3rem);font-weight:700;line-height:1.4}.options-grid{width:100%;max-width:900px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.option-btn{padding:16px 20px;border-radius:14px;border:none;font-family:inherit;font-size:1rem;font-weight:600;color:oklch(98% 0.01 280);cursor:pointer;text-align:left;transition:all 150ms var(--ease-out);line-height:1.4}.option-btn:nth-child(1){background:var(--option-a)}.option-btn:nth-child(2){background:var(--option-b)}.option-btn:nth-child(3){background:var(--option-c);color:oklch(15% 0.02 85)}.option-btn:nth-child(4){background:var(--option-d)}.option-btn:hover{transform:scale(1.02);filter:brightness(1.1)}.option-btn.disabled{pointer-events:none;opacity:0.5}.option-btn.correct{background:var(--correct)!important;color:oklch(98% 0.01 155)!important;transform:scale(1.03);opacity:1!important}.option-btn.wrong{background:var(--wrong)!important;opacity:0.7!important}.option-btn.mine{box-shadow:0 0 0 3px oklch(90% 0.01 280)}.answered-badge{margin-top:16px;font-size:1rem;color:var(--gold);font-weight:700;width:100%;max-width:900px;text-align:center}#results{gap:20px}.result-emoji{font-size:3.5rem;animation:bounce 600ms var(--ease-out)}.result-q{font-size:0.9rem;color:var(--text-dim);max-width:500px;text-align:center}.result-correct{color:var(--correct);font-weight:700;font-size:1rem;margin-top:4px;text-align:center;max-width:500px}.leaderboard{width:100%;max-width:440px;display:flex;flex-direction:column;gap:8px}.lb-row{display:flex;align-items:center;gap:12px;background:var(--surface);padding:12px 18px;border-radius:12px}.lb-row:first-child{background:oklch(22% 0.03 85);border:2px solid var(--gold)}.lb-row .lb-rank{font-weight:900;width:28px;font-size:1.2rem}.lb-row:first-child .lb-rank{color:var(--gold)}.lb-row .lb-name{font-weight:600;flex:1}.lb-row .lb-pts{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--gold)}.lb-row .lb-delta{font-size:0.8rem;color:var(--correct);margin-left:4px}#final{gap:28px}.crown{font-size:4.5rem;animation:bounce 800ms var(--ease-out)}.final-title{font-size:2rem;font-weight:900;color:var(--gold)}.final-winner{font-size:1.2rem;font-weight:600;display:flex;align-items:center;gap:12px;justify-content:center}@keyframes bounce{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}@media(max-width:600px){.options-grid{grid-template-columns:1fr}.chars-grid{grid-template-columns:repeat(5,1fr)}.scores-bar{justify-content:center}}
+</style>
+</head>
+<body>
+<div id="menu" class="screen active"><div class="logo">SEM Battle!</div><div class="logo-sub">Quiz Online Multijugador</div><div class="menu-buttons"><button class="btn btn-primary" onclick="showCreate()">Crear Sala</button><button class="btn btn-secondary" onclick="showJoin()">Unirme a Sala</button></div></div>
+<div id="create" class="screen"><div class="logo" style="font-size:2rem">Crear Sala</div><div class="input-group"><label>Tu nombre</label><input id="hostName" maxlength="12" placeholder="Ej: Gabi" autocomplete="off"></div><span class="chars-label">Elegí tu avatar</span><div class="chars-grid" id="hostChars"></div><button class="btn btn-primary" onclick="createRoom()">Crear Sala</button><button class="btn btn-secondary" onclick="showScreen('menu')" style="max-width:320px;width:100%">Volver</button></div>
+<div id="join" class="screen"><div class="logo" style="font-size:2rem">Unirme</div><div class="input-group"><label>Código de sala</label><input id="joinCode" class="code-input" maxlength="4" placeholder="ABCD" autocomplete="off"></div><div class="input-group"><label>Tu nombre</label><input id="joinName" maxlength="12" placeholder="Ej: Luna" autocomplete="off"></div><span class="chars-label">Elegí tu avatar</span><div class="chars-grid" id="joinChars"></div><button class="btn btn-primary" onclick="joinRoom()">Entrar</button><button class="btn btn-secondary" onclick="showScreen('menu')" style="max-width:320px;width:100%">Volver</button></div>
+<div id="waiting" class="screen"><div class="room-code-label">Compartí este código</div><div class="room-code-display" id="displayCode"></div><div class="players-list" id="waitingPlayers"></div><div class="waiting-text" id="waitingText">Esperando jugadores...</div><button class="btn btn-primary" id="btnStartGame" style="display:none" onclick="startGame()">Iniciar Juego</button></div>
+<div id="game" class="screen"><div class="game-header"><div><span class="question-counter" id="qCounter"></span><div class="question-source" id="qSource"></div></div><div class="scores-bar" id="scoresBar"></div></div><div class="timer-bar"><div class="timer-fill" id="timerFill"></div></div><div class="question-card"><p class="question-text" id="questionText"></p></div><div class="options-grid" id="optionsGrid"></div><div class="answered-badge" id="answeredBadge" style="display:none"></div></div>
+<div id="results" class="screen"><div class="result-emoji" id="resEmoji"></div><div class="result-q" id="resQuestion"></div><div class="result-correct" id="resCorrect"></div><div class="leaderboard" id="leaderboard"></div></div>
+<div id="final" class="screen"><div class="crown">👑</div><div class="final-title">Ganadora!</div><div class="final-winner" id="finalWinner"></div><div class="leaderboard" id="finalBoard"></div><button class="btn btn-secondary" onclick="location.reload()">Volver al inicio</button></div>
+<script>
+const SUPABASE_URL='https://rsmphgyboarrtltmtllg.supabase.co';
+const SUPABASE_KEY='sb_publishable_ap3RhSi2di2OAbUf2_P_iQ_rl_t_OWj';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+// 20 personajes: Armin, Meliodas, Tanjiro, Deku, Bakugou, Itadori, Gojo, Tokito, Hinata, Eren, Todoroki, Haru, Legoshi, Ciel, Naruto, Nagisa, Karma, Kurapika, Gon, Killua
+const CHARS=[
+{id:'c1',emoji:'📘',img:''},{id:'c2',emoji:'🐉',img:''},{id:'c3',emoji:'🌊',img:''},{id:'c4',emoji:'💚',img:''},
+{id:'c5',emoji:'💥',img:''},{id:'c6',emoji:'👊',img:''},{id:'c7',emoji:'🤍',img:''},{id:'c8',emoji:'🌙',img:''},
+{id:'c9',emoji:'🏐',img:''},{id:'c10',emoji:'⚔️',img:''},{id:'c11',emoji:'🔥',img:''},{id:'c12',emoji:'🐰',img:''},
+{id:'c13',emoji:'🐺',img:''},{id:'c14',emoji:'👁️',img:''},{id:'c15',emoji:'🍥',img:''},{id:'c16',emoji:'🔵',img:''},
+{id:'c17',emoji:'🔴',img:''},{id:'c18',emoji:'⛓️',img:''},{id:'c19',emoji:'🎣',img:''},{id:'c20',emoji:'⚡',img:''},
+];
+
+const MAL_IDS=[46494,72921,146156,117909,117911,163847,164471,151147,64769,40882,118489,165850,151138,12531,17,65645,71933,28,30,27];
+
+async function loadImages(){const promises=MAL_IDS.map(async(id,i)=>{try{const res=await fetch(`https://api.jikan.moe/v4/characters/${id}`);if(res.ok){const data=await res.json();const url=data.data?.images?.jpg?.image_url;if(url&&!url.includes('apple-touch-icon')){CHARS[i].img=url;document.querySelectorAll(`[data-cid="${CHARS[i].id}"] img`).forEach(el=>{el.src=url;el.style.display='block'});document.querySelectorAll(`[data-cid="${CHARS[i].id}"] .ef`).forEach(el=>{el.style.display='none'})}}}catch(e){}});Promise.all(promises);}
+loadImages();
+
+function av(charId,cls){const c=CHARS.find(ch=>ch.id===charId);if(!c)return`<div class="${cls}">?</div>`;if(c.img)return`<div class="${cls}" data-cid="${c.id}"><img src="${c.img}"><span class="ef" style="display:none">${c.emoji}</span></div>`;return`<div class="${cls}" data-cid="${c.id}"><img src="" style="display:none"><span class="ef">${c.emoji}</span></div>`;}
+
+const QUESTIONS=[
+{q:"¿Qué es la comunicación?",opts:["Proceso de transmisión de mensajes entre emisor y receptor","Intercambio de ideas entre personas","Transmisión de datos por internet","Diálogo entre dos personas"],correct:0,src:"Comunicación"},
+{q:"¿Qué diferencia la comunicación publicitaria de otras formas?",opts:["Su objetivo comercial y persuasivo","Usa medios masivos","Tiene presupuesto alto","Es creada por agencias"],correct:0,src:"Comunicación"},
+{q:"¿Quién es el emisor en publicidad?",opts:["La empresa anunciante","La agencia de publicidad","El medio de comunicación","El consumidor"],correct:0,src:"Comunicación"},
+{q:"¿Qué papel cumple el receptor?",opts:["Interpretar y reaccionar al mensaje","Crear el mensaje","Financiar la campaña","Diseñar la publicidad"],correct:0,src:"Comunicación"},
+{q:"¿Qué es el canal?",opts:["El medio por el cual se transmite el mensaje","El lenguaje utilizado","El presupuesto de campaña","El público objetivo"],correct:0,src:"Comunicación"},
+{q:"¿Qué función cumple el mensaje publicitario?",opts:["Informar, persuadir y construir significados","Solo informar productos","Solo entretener","Solo educar"],correct:0,src:"Comunicación"},
+{q:"¿Qué caracteriza a la comunicación masiva?",opts:["Llega a grandes audiencias simultáneamente","Es uno a uno","Solo usa internet","Es interpersonal"],correct:0,src:"Comunicación"},
+{q:"¿Qué significa persuasión en publicidad?",opts:["Influir en actitudes y decisiones de consumo","Informar datos objetivos","Entretener al público","Educar sobre productos"],correct:0,src:"Comunicación"},
+{q:"¿Qué diferencia hay entre informar y persuadir?",opts:["Informar transmite datos, persuadir busca acción","Son lo mismo","Informar busca acción, persuadir datos","Persuadir es más importante"],correct:0,src:"Comunicación"},
+{q:"¿Qué rol juega la cultura en publicidad?",opts:["Da sentido a los mensajes y conecta con valores sociales","No tiene importancia","Solo sirve para diseño","Es irrelevante"],correct:0,src:"Comunicación"},
+{q:"¿Qué es retroalimentación en comunicación?",opts:["Respuesta del receptor al mensaje","El presupuesto de campaña","El diseño del anuncio","La elección del medio"],correct:0,src:"Comunicación"},
+{q:"¿Por qué la publicidad es estratégica?",opts:["Porque orienta decisiones de mercado","Porque es cara","Porque usa creatividad","Porque es masiva"],correct:0,src:"Comunicación"},
+{q:"¿Qué es ruido en comunicación?",opts:["Elementos que distorsionan el mensaje","El volumen del audio","El presupuesto bajo","La mala calidad"],correct:0,src:"Comunicación"},
+{q:"¿Qué es redundancia en comunicación?",opts:["Repetición para asegurar comprensión","Error en el mensaje","Mensaje confuso","Falta de claridad"],correct:0,src:"Comunicación"},
+{q:"¿Qué diferencia hay entre comunicación interpersonal y masiva?",opts:["La masiva llega a públicos amplios","La interpersonal es masiva","Son iguales","La interpersonal usa medios"],correct:0,src:"Comunicación"},
+{q:"¿Qué significa segmentación?",opts:["Dividir el público en grupos específicos","Unir todos los públicos","Ignorar al público","Usar un solo mensaje"],correct:0,src:"Comunicación"},
+{q:"¿Qué es un código en comunicación?",opts:["Conjunto de signos para transmitir mensajes","Un idioma extranjero","El presupuesto","El medio de comunicación"],correct:0,src:"Comunicación"},
+{q:"¿Qué papel juega el lenguaje en publicidad?",opts:["Es el vehículo del mensaje persuasivo","Solo es decorativo","No es importante","Es secundario"],correct:0,src:"Comunicación"},
+{q:"¿Qué es la comunicación persuasiva?",opts:["La que busca modificar actitudes o conductas","La que solo informa","La que educa","La que entretiene"],correct:0,src:"Comunicación"},
+{q:"¿Por qué la publicidad es considerada comunicación social?",opts:["Porque influye en la sociedad y cultura","Porque usa redes sociales","Porque es masiva","Porque es comercial"],correct:0,src:"Comunicación"},
+{q:"¿Quién es el emisor interesado?",opts:["La empresa anunciante","La agencia de publicidad","El consumidor","El medio"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué necesidad tiene el anunciante?",opts:["Comunicar para vender","Diseñar creatividad","Producir medios","Investigar mercado"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué función cumple el anunciante?",opts:["Definir objetivos de marketing y comunicación","Crear diseños","Producir videos","Planificar medios"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué aporta el anunciante a la agencia?",opts:["Información estratégica del producto","Presupuesto ilimitado","Diseños creativos","Medios de comunicación"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué relación existe entre anunciante y agencia?",opts:["Colaboración con roles diferenciados","Son lo mismo","La agencia manda","El anunciante crea"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué significa aprobar campañas?",opts:["Validar mensajes antes de su difusión","Crear campañas","Financiar campañas","Diseñar campañas"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué es el presupuesto publicitario?",opts:["Recursos destinados a comunicación","Ganancias de ventas","Costo de producción","Precio del producto"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué diferencia hay entre anunciante y agencia?",opts:["El anunciante detecta la necesidad, la agencia la resuelve técnicamente","Son iguales","La agencia detecta, el anunciante resuelve","No hay diferencia"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué papel cumple el marketing en el anunciante?",opts:["Orientar la estrategia de comunicación","Diseñar creatividades","Producir campañas","Planificar medios"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué significa posicionamiento?",opts:["Lugar que ocupa la marca en la mente del consumidor","Precio del producto","Ubicación física","Segmentación de mercado"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué es branding?",opts:["Construcción de identidad de marca","Publicidad en redes","Diseño de logo","Presupuesto de marca"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué significa target?",opts:["Público objetivo de la campaña","Objetivo de ventas","Meta de ingresos","Blanco de diseño"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué es insight del consumidor?",opts:["Motivación profunda que guía su conducta","Datos demográficos","Información de compra","Opinión superficial"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué significa ROI en publicidad?",opts:["Retorno de inversión","Rateo de interés","Resultado online","Rango de impacto"],correct:0,src:"Empresa anunciante"},
+{q:"¿Por qué el anunciante necesita a la agencia?",opts:["Para transformar objetivos en mensajes efectivos","Para ahorrar dinero","Para tener más personal","Para usar tecnología"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué es briefing?",opts:["Documento con instrucciones del anunciante a la agencia","Reunión de equipo","Presupuesto detallado","Plan de medios"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué significa estrategia de comunicación?",opts:["Plan para alcanzar objetivos publicitarios","Lista de medios","Presupuesto anual","Equipo de trabajo"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué es coherencia comunicacional?",opts:["Que todos los mensajes estén alineados","Usar mismo diseño","Mismo presupuesto","Mismo medio"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué significa fidelización?",opts:["Mantener clientes a largo plazo","Conseguir nuevos clientes","Vender más productos","Aumentar precios"],correct:0,src:"Empresa anunciante"},
+{q:"¿Qué diferencia hay entre anunciante grande y pequeño?",opts:["El grande tiene más recursos y estructura, el pequeño depende más de la agencia","No hay diferencia","El pequeño tiene más recursos","El grande depende de la agencia"],correct:0,src:"Empresa anunciante"},
+{q:"¿Quién es el emisor técnico?",opts:["La agencia de publicidad","La empresa anunciante","El medio de comunicación","El consumidor"],correct:0,src:"Agencia"},
+{q:"¿Cuál es su misión principal?",opts:["Crear y planificar mensajes publicitarios","Vender productos","Investigar mercado","Producir medios"],correct:0,src:"Agencia"},
+{q:"¿Qué ciclo cumple el mensaje publicitario?",opts:["Necesidad, creación, difusión, recepción","Diseño, producción, emisión","Planificación, ejecución, evaluación","Creación, aprobación, lanzamiento"],correct:0,src:"Agencia"},
+{q:"¿Qué es servicio externo?",opts:["Área que mantiene relación con clientes","Área creativa","Área de producción","Área administrativa"],correct:0,src:"Agencia"},
+{q:"¿Qué es servicio interno?",opts:["Área que realiza la tarea publicitaria (creación, producción, medios)","Área de atención al cliente","Área de finanzas","Área de recursos humanos"],correct:0,src:"Agencia"},
+{q:"¿Qué es administración en la agencia?",opts:["Manejo económico-financiero","Gestión de clientes","Dirección creativa","Planificación de medios"],correct:0,src:"Agencia"},
+{q:"¿Qué hace el director de cuentas?",opts:["Define estrategias y políticas para clientes","Diseña creatividades","Planifica medios","Producción de piezas"],correct:0,src:"Agencia"},
+{q:"¿Qué hace el redactor?",opts:["Crea textos publicitarios","Diseña imágenes","Planifica medios","Administra presupuesto"],correct:0,src:"Agencia"},
+{q:"¿Qué hace el diseñador?",opts:["Crea piezas visuales","Escribe textos","Planifica medios","Gestiona clientes"],correct:0,src:"Agencia"},
+{q:"¿Qué hace producción?",opts:["Transforma ideas en piezas técnicas reproducibles","Diseña creatividades","Escribe textos","Planifica medios"],correct:0,src:"Agencia"},
+{q:"¿Qué hace planificación y medios?",opts:["Ordena y controla la difusión de mensajes","Crea diseños","Escribe textos","Gestiona clientes"],correct:0,src:"Agencia"},
+{q:"¿Qué es coordinación en la agencia?",opts:["Control de tiempos y prioridades de trabajo","Gestión de presupuesto","Dirección creativa","Atención al cliente"],correct:0,src:"Agencia"},
+{q:"¿Qué diferencia hay entre agencia independiente y dependiente?",opts:["La independiente tiene patrimonio propio, la dependiente está ligada a medios o anunciantes","No hay diferencia","La dependiente es más grande","La independiente es más pequeña"],correct:0,src:"Agencia"},
+{q:"¿Qué es investigación publicitaria?",opts:["Estudio para mejorar campañas y medir resultados","Investigación de mercado","Estudio de competencia","Análisis de productos"],correct:0,src:"Agencia"},
+{q:"¿Qué es promoción en la agencia?",opts:["Actividades complementarias a la publicidad","Publicidad en redes","Diseño de piezas","Planificación de medios"],correct:0,src:"Agencia"},
+{q:"¿Qué es relaciones públicas en la agencia?",opts:["Apoyo en planes de comunicación institucional","Atención al cliente","Diseño creativo","Planificación de medios"],correct:0,src:"Agencia"},
+{q:"¿Qué diferencia hay entre creatividad y producción?",opts:["Creatividad genera ideas, producción las materializa","Son lo mismo","Producción genera ideas","Creatividad materializa"],correct:0,src:"Agencia"},
+{q:"¿Qué es un planificador de medios?",opts:["Responsable de estrategias de difusión","Diseñador creativo","Redactor de textos","Director de cuentas"],correct:0,src:"Agencia"},
+{q:"¿Qué significa tráfico interno y externo?",opts:["Movimiento de trabajos dentro y fuera de la agencia","Tráfico de vehículos","Movimiento de personal","Flujo de dinero"],correct:0,src:"Agencia"},
+{q:"¿Por qué la agencia es técnica y profesional?",opts:["Porque aplica métodos especializados y no solo intuición","Porque tiene muchos empleados","Porque usa tecnología","Porque es grande"],correct:0,src:"Agencia"},
+];
+
+let me={id:crypto.randomUUID(),name:'',charId:'',isHost:false};let room={code:'',status:'waiting',currentQuestion:0};let playersData=[];let selectedChar=null;let timerInterval=null;let timerStartTime=null;let timerDuration=20;let myAnswer=-1;let questionStartTime=0;
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function showCreate(){showScreen('create');renderCharsIn('hostChars')}
+function showJoin(){showScreen('join');renderCharsIn('joinChars')}
+function renderCharsIn(cid){const grid=document.getElementById(cid);grid.innerHTML=CHARS.map(c=>{const content=c.img?`<img src="${c.img}"><span class="ef" style="display:none">${c.emoji}</span>`:`<img src="" style="display:none"><span class="ef">${c.emoji}</span>`;return`<div class="char-option" data-id="${c.id}" onclick="pickChar('${c.id}','${cid}')"><div class="char-avatar" data-cid="${c.id}">${content}</div></div>`;}).join('')}
+function pickChar(id,cid){selectedChar=id;document.querySelectorAll(`#${cid} .char-option`).forEach(el=>el.classList.toggle('selected',el.dataset.id===id))}
+function genCode(){const ch='ABCDEFGHJKLMNPQRSTUVWXYZ';let c='';for(let i=0;i<4;i++)c+=ch[Math.floor(Math.random()*ch.length)];return c}
+async function createRoom(){const name=document.getElementById('hostName').value.trim();if(!name||!selectedChar)return alert('Poné tu nombre y elegí un avatar');me.name=name;me.charId=selectedChar;me.isHost=true;room.code=genCode();await sb.from('rooms').insert({code:room.code,host_id:me.id,status:'waiting',current_question:0});await sb.from('players').insert({id:me.id,room_code:room.code,name:me.name,character_id:me.charId,score:0});showScreen('waiting');document.getElementById('displayCode').textContent=room.code;document.getElementById('btnStartGame').style.display='block';subscribeToRoom()}
+async function joinRoom(){const code=document.getElementById('joinCode').value.trim().toUpperCase();const name=document.getElementById('joinName').value.trim();if(!code||!name||!selectedChar)return alert('Completá todo');const{data:r}=await sb.from('rooms').select().eq('code',code).single();if(!r)return alert('Sala no encontrada');if(r.status!=='waiting')return alert('El juego ya empezó');me.name=name;me.charId=selectedChar;me.isHost=false;room.code=code;await sb.from('players').insert({id:me.id,room_code:room.code,name:me.name,character_id:me.charId,score:0});showScreen('waiting');document.getElementById('displayCode').textContent=room.code;subscribeToRoom()}
+function subscribeToRoom(){sb.channel('p-'+room.code).on('postgres_changes',{event:'*',schema:'public',table:'players',filter:`room_code=eq.${room.code}`},()=>refreshPlayers()).subscribe();sb.channel('r-'+room.code).on('postgres_changes',{event:'UPDATE',schema:'public',table:'rooms',filter:`code=eq.${room.code}`},(pl)=>{const r=pl.new;room.status=r.status;room.currentQuestion=r.current_question;if(r.status==='playing')onNewQuestion();if(r.status==='showing_results')onShowResults();if(r.status==='finished')onFinished()}).subscribe();refreshPlayers()}
+async function refreshPlayers(){const{data}=await sb.from('players').select().eq('room_code',room.code);playersData=data||[];renderWP()}
+function renderWP(){document.getElementById('waitingPlayers').innerHTML=playersData.map(p=>`<div class="player-row">${av(p.character_id,'player-avatar')}<span class="pr-name">${p.name}</span>${p.id===me.id?'<span class="pr-host">Vos</span>':''}</div>`).join('');document.getElementById('waitingText').textContent=`${playersData.length}/5 jugadores`}
+async function startGame(){if(playersData.length<2)return alert('Mínimo 2');await sb.from('rooms').update({status:'playing',current_question:0}).eq('code',room.code)}
+function onNewQuestion(){myAnswer=-1;showScreen('game');const q=QUESTIONS[room.currentQuestion];document.getElementById('qCounter').textContent=`Pregunta ${room.currentQuestion+1} / ${QUESTIONS.length}`;document.getElementById('qSource').textContent=`📚 ${q.src}`;document.getElementById('questionText').textContent=q.q;document.getElementById('scoresBar').innerHTML=playersData.sort((a,b)=>b.score-a.score).map(p=>`<div class="score-chip">${av(p.character_id,'sc-avatar')}<span class="sc-pts">${p.score}</span></div>`).join('');document.getElementById('optionsGrid').innerHTML=q.opts.map((opt,i)=>`<button class="option-btn" onclick="answer(${i})">${opt}</button>`).join('');document.getElementById('answeredBadge').style.display='none';questionStartTime=Date.now();const fill=document.getElementById('timerFill');fill.style.transition='none';fill.style.width='100%';fill.classList.remove('danger');timerStartTime=performance.now();if(timerInterval)cancelAnimationFrame(timerInterval);function updateTimer(){const elapsed=(performance.now()-timerStartTime)/1000;const remaining=Math.max(0,timerDuration-elapsed);fill.style.width=(remaining/timerDuration*100)+'%';if(remaining<=5)fill.classList.add('danger');if(remaining<=0){cancelAnimationFrame(timerInterval);if(myAnswer===-1)answer(-1)}else{timerInterval=requestAnimationFrame(updateTimer)}};timerInterval=requestAnimationFrame(updateTimer)}
+async function answer(idx){if(myAnswer!==-1)return;myAnswer=idx;if(timerInterval)cancelAnimationFrame(timerInterval);document.querySelectorAll('.option-btn').forEach((b,i)=>{b.classList.add('disabled');if(i===idx)b.classList.add('mine')});document.getElementById('answeredBadge').style.display='block';document.getElementById('answeredBadge').textContent='✓ Respuesta enviada, esperando...';const q=QUESTIONS[room.currentQuestion];const isCorrect=idx===q.correct;const elapsed=(Date.now()-questionStartTime)/1000;const timeBonus=Math.max(0,Math.round((20-elapsed)*10));const points=isCorrect?100+timeBonus:0;await sb.from('players').update({last_answer:idx,score:(playersData.find(p=>p.id===me.id)?.score||0)+points,answered_at:new Date().toISOString()}).eq('id',me.id);if(me.isHost)checkAll()}
+async function checkAll(){let attempts=0;const check=async()=>{const{data}=await sb.from('players').select().eq('room_code',room.code);if(data.every(p=>p.last_answer!==-1&&p.last_answer!==null)||attempts>=25){await sb.from('rooms').update({status:'showing_results'}).eq('code',room.code)}else{attempts++;setTimeout(check,500)}};setTimeout(check,500)}
+async function onShowResults(){await refreshPlayers();showScreen('results');const q=QUESTIONS[room.currentQuestion];const myP=playersData.find(p=>p.id===me.id);const correct=myP&&myP.last_answer===q.correct;document.getElementById('resEmoji').textContent=correct?'🎉':'😵';document.getElementById('resQuestion').textContent=q.q;document.getElementById('resCorrect').textContent=`✓ ${q.opts[q.correct]}`;const sorted=[...playersData].sort((a,b)=>b.score-a.score);document.getElementById('leaderboard').innerHTML=sorted.map((p,i)=>`<div class="lb-row"><span class="lb-rank">${i===0?'👑':i+1}</span>${av(p.character_id,'player-avatar')}<span class="lb-name">${p.name}</span><span class="lb-pts">${p.score}</span>${p.last_answer===q.correct?'<span class="lb-delta">✓</span>':''}</div>`).join('');if(me.isHost){setTimeout(async()=>{const next=room.currentQuestion+1;if(next>=QUESTIONS.length){await sb.from('rooms').update({status:'finished'}).eq('code',room.code)}else{await Promise.all(playersData.map(p=>sb.from('players').update({last_answer:-1,answered_at:null}).eq('id',p.id)));await sb.from('rooms').update({status:'playing',current_question:next}).eq('code',room.code)}},2500)}}
+async function onFinished(){await refreshPlayers();showScreen('final');const sorted=[...playersData].sort((a,b)=>b.score-a.score);const w=sorted[0];document.getElementById('finalWinner').innerHTML=`${av(w.character_id,'player-avatar-lg')}<span>${w.name} con ${w.score} pts</span>`;document.getElementById('finalBoard').innerHTML=sorted.map((p,i)=>`<div class="lb-row"><span class="lb-rank">${i===0?'👑':i+1}</span>${av(p.character_id,'player-avatar')}<span class="lb-name">${p.name}</span><span class="lb-pts">${p.score}</span></div>`).join('')}
+</script>
+</body>
+</html>
